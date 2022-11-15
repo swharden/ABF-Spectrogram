@@ -5,9 +5,9 @@ VisualStudioVersion = 17.4.33103.184
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AbfSpectrogram", "AbfSpectrogram\AbfSpectrogram.csproj", "{0740A2DF-F828-41D1-8662-BE90684F6BD9}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AbfSpectrogram.Tests", "AbfSpectrogram.Tests\AbfSpectrogram.Tests.csproj", "{5365EBD7-A6A2-4395-A7EF-3D130F4E472C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AbfSpectrogram.Console", "AbfSpectrogram.Console\AbfSpectrogram.Console.csproj", "{C0B069EC-83B9-4823-87A9-BCA599E2B75D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AbfSpectrogram.Console", "AbfSpectrogram.Console\AbfSpectrogram.Console.csproj", "{C0B069EC-83B9-4823-87A9-BCA599E2B75D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AbfSpectrogram.Gui", "AbfSpectrogram.Gui\AbfSpectrogram.Gui.csproj", "{4E759308-0B45-48E9-96B9-6CF4CEFD1C86}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -19,14 +19,14 @@ Global
 		{0740A2DF-F828-41D1-8662-BE90684F6BD9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0740A2DF-F828-41D1-8662-BE90684F6BD9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0740A2DF-F828-41D1-8662-BE90684F6BD9}.Release|Any CPU.Build.0 = Release|Any CPU
-		{5365EBD7-A6A2-4395-A7EF-3D130F4E472C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5365EBD7-A6A2-4395-A7EF-3D130F4E472C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5365EBD7-A6A2-4395-A7EF-3D130F4E472C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5365EBD7-A6A2-4395-A7EF-3D130F4E472C}.Release|Any CPU.Build.0 = Release|Any CPU
 		{C0B069EC-83B9-4823-87A9-BCA599E2B75D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{C0B069EC-83B9-4823-87A9-BCA599E2B75D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C0B069EC-83B9-4823-87A9-BCA599E2B75D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C0B069EC-83B9-4823-87A9-BCA599E2B75D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4E759308-0B45-48E9-96B9-6CF4CEFD1C86}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4E759308-0B45-48E9-96B9-6CF4CEFD1C86}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4E759308-0B45-48E9-96B9-6CF4CEFD1C86}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4E759308-0B45-48E9-96B9-6CF4CEFD1C86}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

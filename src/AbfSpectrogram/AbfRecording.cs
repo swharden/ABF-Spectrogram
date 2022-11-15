@@ -11,6 +11,7 @@ namespace AbfSpectrogram;
 
 public class AbfRecording
 {
+    public readonly string Path;
     public readonly double[] Values;
     public readonly int SampleRate;
     public double LengthSeconds => Values.Length / SampleRate;
@@ -18,6 +19,8 @@ public class AbfRecording
 
     public AbfRecording(string path)
     {
+        Path = System.IO.Path.GetFullPath(path);
+
         AbfSharp.ABF abf = new(path, true);
 
         float[] values = Enumerable.Range(0, abf.Header.SweepCount)
