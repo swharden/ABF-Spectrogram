@@ -1,3 +1,4 @@
+using ScottPlot.Plottable;
 using System.Text;
 
 namespace AbfSpectrogram.Gui
@@ -59,7 +60,7 @@ namespace AbfSpectrogram.Gui
                 return;
 
             ScottPlot.Plottable.VLine vline = vlines.First();
-            int powerOfTwo = 16;
+            int powerOfTwo = (int)nudFftSize.Value;
             int fftSamples = 1 << powerOfTwo;
             int firstSampleIndex = (int)(ABF.SampleRate * vline.X);
             int lastSampleIndex = firstSampleIndex + fftSamples;
@@ -72,7 +73,10 @@ namespace AbfSpectrogram.Gui
 
             var oldLimits = formsPlot2.Plot.GetAxisLimits();
 
-            FftWaveform fft = ABF.GetFft(startTimeSec: vline.X, powerOfTwo: 16, maxFreq: 100);
+            FftWaveform fft = ABF.GetFft(startTimeSec: vline.X, powerOfTwo: powerOfTwo, maxFreq: 100);
+
+            double fftTimeSec = (double)fftSamples / ABF.SampleRate;
+            lblFftSize.Text = $"{fftTimeSec:N3} sec ({fft.Resolution:N2} Hz resolution)";
 
             formsPlot2.Plot.Clear();
             formsPlot2.Plot.AddSignal(fft.Values, 1.0 / fft.Resolution);
@@ -80,7 +84,7 @@ namespace AbfSpectrogram.Gui
                 formsPlot2.Plot.AxisAuto(horizontalMargin: 0);
             else
                 formsPlot2.Plot.SetAxisLimits(oldLimits);
-            formsPlot2.Plot.Title($"FFT at {vline.X} sec");
+            formsPlot2.Plot.Title($"FFT at {vline.X:N2} sec ({vline.X / 60:N2} min)");
             formsPlot2.Plot.YLabel("Power (RMS²)");
             formsPlot2.Plot.XLabel("Frequency (Hz)");
             formsPlot2.Refresh();
@@ -119,6 +123,11 @@ namespace AbfSpectrogram.Gui
                 string saveFilePath = savefile.FileName;
                 File.WriteAllText(saveFilePath, sb.ToString());
             }
+        }
+
+        private void nudFftSize_ValueChanged(object sender, EventArgs e)
+        {
+            UpdateFFT();
         }
     }
 }
