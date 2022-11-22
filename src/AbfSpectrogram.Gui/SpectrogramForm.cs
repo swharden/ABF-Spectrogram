@@ -22,6 +22,8 @@ namespace AbfSpectrogram.Gui
         int FftSize => (int)Math.Pow(2, (double)nudFftSize.Value);
         double FftSizeSec => FftSize / SampleRate;
         double FftResolution => (double)SampleRate / FftSize;
+        double[,]? FftData = null;
+
         int SpectrogramRowCount => (int)((double)nudMaxFreq.Value / FftResolution);
         FftSharp.Windows.Hanning WindowFunction = new();
 
@@ -98,7 +100,7 @@ namespace AbfSpectrogram.Gui
             progressBar1.Maximum = indexes.Length;
             progressBar1.Visible = true;
 
-            double[,] data = new double[SpectrogramRowCount, indexes.Length];
+            FftData = new double[SpectrogramRowCount, indexes.Length];
 
             for (int i = 0; i < indexes.Length; i++)
             {
@@ -109,20 +111,46 @@ namespace AbfSpectrogram.Gui
                 double[] fft = FftSharp.Transform.FFTmagnitude(segment);
                 for (int j = 0; j < SpectrogramRowCount; j++)
                 {
-                    data[SpectrogramRowCount - 1 - j, i] = Math.Log10(fft[j]);
-                    //data[SpectrogramRowCount - 1 - j, i] = fft[j];
+                    FftData[SpectrogramRowCount - 1 - j, i] = fft[j];
                 }
             }
+
+            ScaleToMean(FftData, 5);
 
             progressBar1.Visible = false;
 
             formsPlot2.Plot.Clear();
-            var hm = formsPlot2.Plot.AddHeatmap(data, lockScales: false);
+            var hm = formsPlot2.Plot.AddHeatmap(FftData, lockScales: false);
             hm.XMax = ABF!.LengthMinutes;
             hm.YMax = (double)nudMaxFreq.Value;
+            formsPlot2.Plot.AxisAuto(0, 0);
             formsPlot2.Plot.XLabel("Time (minutes)");
             formsPlot2.Plot.YLabel("Frequency (Hz)");
 
+            UpdateIntensity();
+        }
+
+        private void ScaleToMean(double[,] data, double newMean = 100)
+        {
+            double sum = 0;
+
+            for (int i = 0; i < data.GetLength(0); i++)
+                for (int j = 0; j < data.GetLength(1); j++)
+                    sum += data[i, j];
+
+            double oldMean = sum / (data.GetLength(0) * data.GetLength(1));
+
+            for (int i = 0; i < data.GetLength(0); i++)
+                for (int j = 0; j < data.GetLength(1); j++)
+                    data[i, j] = data[i, j] / oldMean * newMean;
+        }
+
+        private void nudIntensity_ValueChanged(object sender, EventArgs e) => UpdateIntensity();
+
+        private void UpdateIntensity()
+        {
+            ScottPlot.Plottable.Heatmap hm = (ScottPlot.Plottable.Heatmap)formsPlot2.Plot.GetPlottables().First();
+            hm.Update(FftData, min: 0, max: (double)nudIntensity.Value);
             formsPlot2.Refresh();
         }
     }

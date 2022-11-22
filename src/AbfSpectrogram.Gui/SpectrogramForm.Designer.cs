@@ -42,9 +42,12 @@
             this.label1 = new System.Windows.Forms.Label();
             this.nudStep = new System.Windows.Forms.NumericUpDown();
             this.lblStep = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.nudIntensity = new System.Windows.Forms.NumericUpDown();
             ((System.ComponentModel.ISupportInitialize)(this.nudFftSize)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudMaxFreq)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudStep)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudIntensity)).BeginInit();
             this.SuspendLayout();
             // 
             // lblFft
@@ -134,7 +137,7 @@
             // btnGenerate
             // 
             this.btnGenerate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnGenerate.Location = new System.Drawing.Point(1225, 17);
+            this.btnGenerate.Location = new System.Drawing.Point(1666, 17);
             this.btnGenerate.Name = "btnGenerate";
             this.btnGenerate.Size = new System.Drawing.Size(138, 59);
             this.btnGenerate.TabIndex = 20;
@@ -158,7 +161,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.progressBar1.Location = new System.Drawing.Point(12, 96);
             this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(1351, 34);
+            this.progressBar1.Size = new System.Drawing.Size(1792, 34);
             this.progressBar1.TabIndex = 22;
             // 
             // formsPlot1
@@ -168,7 +171,7 @@
             this.formsPlot1.Location = new System.Drawing.Point(12, 138);
             this.formsPlot1.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.formsPlot1.Name = "formsPlot1";
-            this.formsPlot1.Size = new System.Drawing.Size(1351, 225);
+            this.formsPlot1.Size = new System.Drawing.Size(1792, 225);
             this.formsPlot1.TabIndex = 23;
             // 
             // formsPlot2
@@ -179,7 +182,7 @@
             this.formsPlot2.Location = new System.Drawing.Point(15, 373);
             this.formsPlot2.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.formsPlot2.Name = "formsPlot2";
-            this.formsPlot2.Size = new System.Drawing.Size(1352, 483);
+            this.formsPlot2.Size = new System.Drawing.Size(1793, 838);
             this.formsPlot2.TabIndex = 24;
             // 
             // label1
@@ -224,11 +227,45 @@
             this.lblStep.TabIndex = 27;
             this.lblStep.Text = "12.34 sec (123 FFTs)";
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(1107, 17);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(117, 25);
+            this.label2.TabIndex = 28;
+            this.label2.Text = "Max Intensity";
+            // 
+            // nudIntensity
+            // 
+            this.nudIntensity.Location = new System.Drawing.Point(1230, 17);
+            this.nudIntensity.Maximum = new decimal(new int[] {
+            2000,
+            0,
+            0,
+            0});
+            this.nudIntensity.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.nudIntensity.Name = "nudIntensity";
+            this.nudIntensity.Size = new System.Drawing.Size(112, 31);
+            this.nudIntensity.TabIndex = 29;
+            this.nudIntensity.Value = new decimal(new int[] {
+            20,
+            0,
+            0,
+            0});
+            this.nudIntensity.ValueChanged += new System.EventHandler(this.nudIntensity_ValueChanged);
+            // 
             // SpectrogramForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1382, 870);
+            this.ClientSize = new System.Drawing.Size(1823, 1225);
+            this.Controls.Add(this.nudIntensity);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.lblStep);
             this.Controls.Add(this.nudStep);
             this.Controls.Add(this.label1);
@@ -250,6 +287,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.nudFftSize)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudMaxFreq)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudStep)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudIntensity)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -270,5 +308,7 @@
         private Label label1;
         private NumericUpDown nudStep;
         private Label lblStep;
+        private Label label2;
+        private NumericUpDown nudIntensity;
     }
 }
