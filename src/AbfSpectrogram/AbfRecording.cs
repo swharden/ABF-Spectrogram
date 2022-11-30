@@ -22,9 +22,10 @@ public class AbfRecording
 
         AbfSharp.ABF abf = new(path, true);
 
-        float[] values = Enumerable.Range(0, abf.Header.SweepCount)
-            .SelectMany(x => abf.GetSweep(x))
-            .ToArray();
+        bool isGapFree = abf.Header.nOperationMode == 3;
+        float[] values = isGapFree
+            ? abf.GetSweep(0)
+            : Enumerable.Range(0, abf.Header.SweepCount).SelectMany(x => abf.GetSweep(x)).ToArray();
 
         Values = Array.ConvertAll(values, x => (double)x);
 

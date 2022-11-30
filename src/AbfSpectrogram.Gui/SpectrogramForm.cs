@@ -80,17 +80,14 @@ namespace AbfSpectrogram.Gui
             if (ABF is null)
                 return Array.Empty<int>();
 
-            int count = (int)(RecordingLengthSec / StepSizeSec);
-            int maxIndex = ABF.Values.Length;
-            int[] indexes = Enumerable.Range(0, count)
-                .Select(x => x * StepSizePoints)
-                //.Where(x => x < maxIndex)
-                .ToArray();
-
-            if (!indexes.Any())
-                throw new InvalidOperationException();
-
-            return indexes;
+            List<int> indexes = new();
+            int i = 0;
+            while (i < ABF.Values.Length - 1 - FftSize)
+            {
+                indexes.Add(i);
+                i += StepSizePoints;
+            }
+            return indexes.ToArray();
         }
 
         private void btnGenerate_Click(object sender, EventArgs e)
