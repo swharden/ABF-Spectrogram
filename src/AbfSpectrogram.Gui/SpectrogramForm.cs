@@ -62,6 +62,7 @@ namespace AbfSpectrogram.Gui
             formsPlot1.Plot.Clear();
             formsPlot1.Plot.AddSignal(ABF.Values, ABF.SampleRate * 60);
             formsPlot1.Plot.XLabel("Time (minutes)");
+            formsPlot1.Plot.AxisAuto(horizontalMargin: 0);
             formsPlot1.Refresh();
         }
 
