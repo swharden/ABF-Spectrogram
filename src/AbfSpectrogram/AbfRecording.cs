@@ -49,12 +49,32 @@ public class AbfRecording
         FftSharp.Window hanningWindow = new FftSharp.Windows.Hanning();
         double[] window = hanningWindow.Create(fftLength, true);
 
+        // isolate real values for this window
+        double[] windowValues = new double[fftLength];
+        for (int i = 0; i < fftLength; i++)
+            windowValues[i] = Values[firstIndex + i];
+
+        // remove DC
+        double sum = 0;
+        for (int i = 0; i < fftLength; i++)
+            sum += windowValues[i];
+        double mean = sum / fftLength;
+        for (int i = 0; i < fftLength; i++)
+            sum -= mean;
+
+        // apply window
+        for (int i = 0; i < fftLength; i++)
+            windowValues[i] = windowValues[i] * window[i];
+
+        // create complex buffer
         Complex[] buffer = new Complex[fftLength];
         for (int i = 0; i < fftLength; i++)
             buffer[i] = new(Values[firstIndex + i] * window[i], 0);
 
+        // perform FFT
         Transform.FFT(buffer);
 
+        // get the real result
         double[] real = new double[buffer.Length / 2];
         for (int i = 0; i < real.Length; i++)
             real[i] = buffer[i].Magnitude;
@@ -66,7 +86,10 @@ public class AbfRecording
         }
 
         if (zeroDC)
+        {
             real[0] = 0;
+            real[1] = 0;
+        }
 
         return new FftWaveform(real, SampleRate, true, maxFreq);
     }
